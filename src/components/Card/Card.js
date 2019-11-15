@@ -22,7 +22,7 @@ Card.propTypes = {
   img: PropTypes.string,
   isFlipped: PropTypes.bool,
   handleClick: PropTypes.func,
-  id: PropTypes.number,
+  id: PropTypes.string,
 }
 
 export default Card

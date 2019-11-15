@@ -2,16 +2,6 @@
     position:relative;
     border-radius: 5%;
     margin-bottom:1%;
-}
-
-[class*="shortContainer"] .card {
-    height:calc(90vw / 4);
-    width: 24%;
-    margin-left: 0.5%;
-    margin-right:0.5%;
-}
-
-[class*="tallContainer"] .card {
     width:24%;
     height:calc(90vw / 4);
     margin-left:0.5%;
@@ -23,7 +13,6 @@
         margin-left:0.5%;
         margin-right:0.5%;
     }
-
 }
 
 .unClickable {
@@ -35,8 +24,6 @@
     width: 100%;
     height: 100%;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    // border:1px solid black;
-  
     transition: transform 1s;
     transform-style: preserve-3d;
 }

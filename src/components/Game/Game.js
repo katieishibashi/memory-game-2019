@@ -15,11 +15,11 @@ class Game extends React.Component {
   }
 
   typeButtonClick(type) {
-    alert('Level button clicked')
+    console.log('Level button clicked')
     this.getData(type)
   }
   resetButtonClick(text) {
-    alert('reset button clicked')
+    console.log('reset button clicked')
   }
 
   chooseRandomImages(images) {
@@ -55,7 +55,7 @@ class Game extends React.Component {
         { img: image, id: `card${index}`, isFlipped: false }
       )
     })
-    this.setState({ cards: shuffle(cardsArr), mode: 'playing' })
+    this.setState({ cards: this.shuffle(cardsArr), mode: 'playing' })
   }
 
   // Pull in the stock photos we will use on the cards
@@ -72,16 +72,19 @@ class Game extends React.Component {
   }
 
   render() {
+    const { cards, mode } = this.state
     return (
       <div className={styles.mainContainer}>
-        {this.state.mode === 'playing' && 
-        this.state.cards.forEach(card => {
-          <Card img={card.img} id={card.id} isFlipped={card.isFlipped}/>
-        })}
-
-        {this.state.mode !== 'playing' && (
+        <div className={styles.cardsContainer}>
+        {mode === 'playing' &&
+          cards.map((card, index) => {
+            console.log(card.img);
+            return <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} />
+          })}
+</div>
+        {mode !== 'playing' && (
           <MessageDisplay
-            mode={this.state.mode}
+            mode={mode}
             typeButtonClick={this.typeButtonClick}
             resetButtonClick={this.resetButtonClick}
           />
@@ -93,6 +96,6 @@ class Game extends React.Component {
 
 Game.PropTypes = {
   mode: PropTypes.oneOf(['start', 'playing', 'end']),
-  cards: PropTypes.array
+  cards: PropTypes.array,
 }
 export default Game
