@@ -8,10 +8,12 @@ import styles from './Game.scss'
 class Game extends React.Component {
   constructor() {
     super()
-    this.state = { mode: 'start', cards: {} }
+    this.state = { mode: 'start', cards: [] }
     this.typeButtonClick = this.typeButtonClick.bind(this)
     this.resetButtonClick = this.resetButtonClick.bind(this)
+    this.numberOfCards = 8
   }
+
   typeButtonClick(type) {
     alert('Level button clicked')
     this.getData(type)
@@ -19,20 +21,42 @@ class Game extends React.Component {
   resetButtonClick(text) {
     alert('reset button clicked')
   }
-  // Pull in stock photos to do matching with
+
+  chooseRandomImages(images) {
+    // Select 8 random images
+    const imageSet = new Set()
+    while (imageSet.size < this.numberOfCards) {
+      // Select a random image location
+      const imageLocation = Math.floor(Math.random() * Math.floor(images.length))
+      // Add the image url to the set we will use to generate cards
+      imageSet.add(images[imageLocation])
+    }
+    //return it as an array so we can grab the index later
+    return [...imageSet]
+  }
+
+  mapDataToCards(images) {
+    var images = this.chooseRandomImages(images)
+    // Use the image urls to generate our cards data
+    var cardsArr = [];
+    images.forEach((image, index) =>{
+      cardsArr.push({ img: image, id: `card${index}`, flipped: false }) 
+    })
+    console.log(cardsArr)
+  }
+
+  // Pull in the stock photos we will use on the cards
   getData(type) {
     fetch(`data/${type}.json`)
       .then(response => response.json())
       .then(data => {
         // Work with JSON data here
-        console.log(data)
+        this.mapDataToCards(data.images)
       })
       .catch(() => {
         console.warn('failed to get data')
       })
   }
-
-  // componentDidMount() {}
 
   render() {
     return (
