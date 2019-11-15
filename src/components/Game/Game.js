@@ -75,20 +75,20 @@ class Game extends React.Component {
     const { cards, mode } = this.state
     return (
       <div className={styles.mainContainer}>
+        <MessageDisplay
+          mode={mode}
+          typeButtonClick={this.typeButtonClick}
+          resetButtonClick={this.resetButtonClick}
+        />
         <div className={styles.cardsContainer}>
-        {mode === 'playing' &&
-          cards.map((card, index) => {
-            console.log(card.img);
-            return <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} />
-          })}
-</div>
-        {mode !== 'playing' && (
-          <MessageDisplay
-            mode={mode}
-            typeButtonClick={this.typeButtonClick}
-            resetButtonClick={this.resetButtonClick}
-          />
-        )}
+          {mode === 'playing' &&
+            cards.map((card, index) => {
+              console.log(card.img)
+              return (
+                <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} />
+              )
+            })}
+        </div>
       </div>
     )
   }

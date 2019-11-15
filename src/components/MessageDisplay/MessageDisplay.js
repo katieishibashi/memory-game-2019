@@ -19,6 +19,16 @@ class MessageDisplay extends React.Component {
         </div>
       )
     }
+    function PlayingScreen() {
+      return (
+        <div>
+          <h1>Flip over cards to find a match.</h1>
+          <div className={styles.buttonContainer}>
+            <button onClick={resetButtonClick}>RESET</button>
+          </div>
+        </div>
+      )
+    }
     function EndScreen() {
       return (
         <div>
@@ -31,6 +41,8 @@ class MessageDisplay extends React.Component {
     }
     if (mode === 'start') {
       display = <StartScreen />
+    } else if (mode === 'playing') {
+      display = <PlayingScreen />
     } else {
       display = <EndScreen />
     }
