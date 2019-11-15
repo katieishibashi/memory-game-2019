@@ -11,6 +11,7 @@ class Game extends React.Component {
     this.state = { mode: 'start', cards: [] }
     this.typeButtonClick = this.typeButtonClick.bind(this)
     this.resetButtonClick = this.resetButtonClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
     this.numberOfCards = 8
   }
 
@@ -72,6 +73,10 @@ class Game extends React.Component {
       })
   }
 
+  handleClick(){
+    console.log("card clicked");
+  }
+
   render() {
     const { cards, mode } = this.state
     return (
@@ -85,7 +90,7 @@ class Game extends React.Component {
           {mode === 'playing' &&
             cards.map((card, index) => {
               return (
-                <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} />
+                <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} handleClick={this.handleClick} />
               )
             })}
         </div>
