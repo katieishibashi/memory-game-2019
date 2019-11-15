@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CardsContainer from '../CardsContainer/CardsContainer'
+import Card from '../Card/Card'
 import MessageDisplay from '../MessageDisplay/MessageDisplay'
 
 import styles from './Game.scss'
@@ -51,11 +51,11 @@ class Game extends React.Component {
     const cardsArr = []
     images.forEach((image, index) => {
       cardsArr.push(
-        { img: image, id: `card${index}`, flipped: false },
-        { img: image, id: `card${index}`, flipped: false }
+        { img: image, id: `card${index}`, isFlipped: false },
+        { img: image, id: `card${index}`, isFlipped: false }
       )
     })
-    this.setState({ cards: cardsArr, mode: 'playing' })
+    this.setState({ cards: shuffle(cardsArr), mode: 'playing' })
   }
 
   // Pull in the stock photos we will use on the cards
@@ -74,7 +74,11 @@ class Game extends React.Component {
   render() {
     return (
       <div className={styles.mainContainer}>
-        {this.state.mode === 'playing' && <CardsContainer cards={this.state.cards} />}
+        {this.state.mode === 'playing' && 
+        this.state.cards.forEach(card => {
+          <Card img={card.img} id={card.id} isFlipped={card.isFlipped}/>
+        })}
+
         {this.state.mode !== 'playing' && (
           <MessageDisplay
             mode={this.state.mode}
