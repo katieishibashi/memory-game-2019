@@ -31,18 +31,31 @@ class Game extends React.Component {
       // Add the image url to the set we will use to generate cards
       imageSet.add(images[imageLocation])
     }
-    //return it as an array so we can grab the index later
+    // return it as an array so we can grab the index later
     return [...imageSet]
+  }
+
+  shuffle(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * i)
+      const temp = deck[i]
+      deck[i] = deck[j]
+      deck[j] = temp
+    }
+    return deck
   }
 
   mapDataToCards(images) {
     var images = this.chooseRandomImages(images)
     // Use the image urls to generate our cards data
-    var cardsArr = [];
-    images.forEach((image, index) =>{
-      cardsArr.push({ img: image, id: `card${index}`, flipped: false }) 
+    const cardsArr = []
+    images.forEach((image, index) => {
+      cardsArr.push(
+        { img: image, id: `card${index}`, flipped: false },
+        { img: image, id: `card${index}`, flipped: false }
+      )
     })
-    console.log(cardsArr)
+    this.setState({ cards: cardsArr, mode: 'playing' })
   }
 
   // Pull in the stock photos we will use on the cards
@@ -61,7 +74,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className={styles.mainContainer}>
-        {this.state.mode === 'playing' && <CardsContainer />}
+        {this.state.mode === 'playing' && <CardsContainer cards={this.state.cards} />}
         {this.state.mode !== 'playing' && (
           <MessageDisplay
             mode={this.state.mode}
@@ -69,12 +82,6 @@ class Game extends React.Component {
             resetButtonClick={this.resetButtonClick}
           />
         )}
-        <button
-          onClick={() => this.resetButtonClick()}
-          className={`${styles.button} ${styles.resetButton}`}
-        >
-          Reset
-        </button>
       </div>
     )
   }
@@ -82,5 +89,6 @@ class Game extends React.Component {
 
 Game.PropTypes = {
   mode: PropTypes.oneOf(['start', 'playing', 'end']),
+  cards: PropTypes.array
 }
 export default Game
