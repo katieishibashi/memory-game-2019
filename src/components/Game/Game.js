@@ -19,6 +19,7 @@ class Game extends React.Component {
     this.getData(type)
   }
   resetButtonClick(text) {
+    this.setState({ mode: 'start', cards: [] })
     console.log('reset button clicked')
   }
 
@@ -83,7 +84,6 @@ class Game extends React.Component {
         <div className={styles.cardsContainer}>
           {mode === 'playing' &&
             cards.map((card, index) => {
-              console.log(card.img)
               return (
                 <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} />
               )
