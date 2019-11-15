@@ -12,18 +12,20 @@ class Game extends React.Component {
     this.typeButtonClick = this.typeButtonClick.bind(this)
     this.resetButtonClick = this.resetButtonClick.bind(this)
   }
-  typeButtonClick(level) {
+  typeButtonClick(type) {
     alert('Level button clicked')
-    this.getStockPhotos(8)
+    this.getData(type)
   }
   resetButtonClick(text) {
     alert('reset button clicked')
   }
   // Pull in stock photos to do matching with
   getData(type) {
-    fetch(`https://source.unsplash.com/250x300/?random`)
-      .then(response => {
-        console.log(response);
+    fetch(`data/${type}.json`)
+      .then(response => response.json())
+      .then(data => {
+        // Work with JSON data here
+        console.log(data)
       })
       .catch(() => {
         console.warn('failed to get data')

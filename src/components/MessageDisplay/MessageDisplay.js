@@ -10,7 +10,7 @@ class MessageDisplay extends React.Component {
     function StartScreen() {
       return (
         <div>
-          <h1>Welcome to the game! Select your level.</h1>
+          <h1>Welcome to the game! Select a type.</h1>
           <div className={styles.buttonContainer}>
             <button onClick={() => typeButtonClick('cats')}>Cats</button>&nbsp;
             <button onClick={() => typeButtonClick('dogs')}>Dogs</button>&nbsp;
