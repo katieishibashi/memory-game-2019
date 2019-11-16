@@ -49,6 +49,7 @@
 .cardBack{
     background-image: linear-gradient(45deg, #5fa8ed 25%, #708999 25%, #708999 50%, #5fa8ed 50%, #5fa8ed 75%, #708999 75%, #708999 100%);
 background-size: 28.28px 28.28px;
+
 }
 
 
@@ -59,4 +60,6 @@ background-size: 28.28px 28.28px;
     display:flex;
     align-items:center;
     justify-content:center;
+    background-size:cover;
+
   }

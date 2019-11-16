@@ -8,11 +8,12 @@ import styles from './Game.scss'
 class Game extends React.Component {
   constructor() {
     super()
-    this.state = { mode: 'start', cards: [] }
+    this.state = { mode: 'start', cards: [], activeCards: [] }
     this.typeButtonClick = this.typeButtonClick.bind(this)
     this.resetButtonClick = this.resetButtonClick.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.numberOfCards = 8
+    this.isBoardUnclickable = false
   }
 
   typeButtonClick(type) {
@@ -73,8 +74,24 @@ class Game extends React.Component {
       })
   }
 
-  handleClick(){
-    console.log("card clicked");
+  handleClick(e, id, index) {
+    console.log('in handle click', id, index)
+    // return if we already have two cards selected
+    if (this.state.activeCards.length >= 2) {
+      return
+    }
+    // temporarily make the board unclickable until the card flips
+    // this.isBoardUnclickable = true
+    console.log("USFSDF");
+    // this.setState(prevState => {
+    //   cards: prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
+    // }, () => this.isBoardUnclickable = false)
+    this.setState((prevState) => {
+      console.log("sdf",prevState.cards[index]);
+      prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped;
+      console.log("sdf",prevState.cards[index]);
+      return prevState;
+    })
   }
 
   render() {
@@ -86,13 +103,22 @@ class Game extends React.Component {
           typeButtonClick={this.typeButtonClick}
           resetButtonClick={this.resetButtonClick}
         />
-        <div className={styles.cardsContainer}>
+        <div
+          className={[styles.cardsContainer, this.isBoardUnclickable && styles.unClickable].join(
+            ' '
+          )}
+        >
           {mode === 'playing' &&
-            cards.map((card, index) => {
-              return (
-                <Card img={card.img} key={`card${index}`} id={card.id} isFlipped={card.isFlipped} handleClick={this.handleClick} />
-              )
-            })}
+            cards.map((card, index) => (
+              <Card
+                img={card.img}
+                key={`card${index}`}
+                index={index}
+                id={card.id}
+                isFlipped={card.isFlipped}
+                handleClick={this.handleClick}
+              />
+            ))}
         </div>
       </div>
     )

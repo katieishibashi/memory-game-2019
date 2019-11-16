@@ -17,6 +17,10 @@
   justify-content: space-around;
 }
 
+.unClickable{
+  pointer-events:none;
+}
+
 button{
   border:3px solid #708999;
   color:#708999;
