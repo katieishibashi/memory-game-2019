@@ -14,16 +14,13 @@ class Game extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.numberOfCards = 8
     this.numberOfMatches = 0
-    this.isBoardUnclickable = false
   }
 
   typeButtonClick(type) {
-    console.log('Level button clicked')
     this.getData(type)
   }
   resetButtonClick(text) {
     this.setState({ mode: 'start', cards: [] })
-    console.log('reset button clicked')
   }
 
   chooseRandomImages(images) {
@@ -81,23 +78,21 @@ class Game extends React.Component {
     if (this.state.activeCards.length >= 2) {
       return
     }
-    // temporarily make the board unclickable until the card flips
-    // this.isBoardUnclickable = true
 
     // Flip the card
-    this.setState(
-      prevState => {
-        prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
-        return prevState
-      },
-      () => {
-        this.isBoardUnclickable = false
-        console.log('callback should have fired', this.isBoardUnclickable)
-      }
-    )
+    this.setState(prevState => {
+      prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
+      return prevState
+    })
 
     // Store the data
-    this.state.activeCards.push({ id, index })
+    // Return if they've just clicked the same card twice
+    if (this.state.activeCards[0] && index === this.state.activeCards[0].index) {
+      console.log("hi");
+      return
+    } else {
+      this.state.activeCards.push({ id, index })
+    }
 
     // If this is the second card, check for a match
     if (this.state.activeCards.length === 2) {
@@ -113,11 +108,11 @@ class Game extends React.Component {
         // Wait a second so we actually see both cards
         setTimeout(() => {
           this.setState(prevState => {
-            prevState.activeCards = []
             prevState.cards[this.state.activeCards[0].index].isFlipped = false
             prevState.cards[this.state.activeCards[1].index].isFlipped = false
+            prevState.activeCards = []
             return prevState
-          }, () => (this.isBoardUnclickable = false))
+          })
         }, 1000)
       }
     }
@@ -132,11 +127,7 @@ class Game extends React.Component {
           typeButtonClick={this.typeButtonClick}
           resetButtonClick={this.resetButtonClick}
         />
-        <div
-          className={[styles.cardsContainer, this.isBoardUnclickable && styles.unClickable].join(
-            ' '
-          )}
-        >
+        <div className={styles.cardsContainer}>
           {mode === 'playing' &&
             cards.map((card, index) => (
               <Card
