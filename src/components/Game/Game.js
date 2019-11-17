@@ -13,6 +13,7 @@ class Game extends React.Component {
     this.resetButtonClick = this.resetButtonClick.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.numberOfCards = 8
+    this.numberOfMatches = 0
     this.isBoardUnclickable = false
   }
 
@@ -82,16 +83,44 @@ class Game extends React.Component {
     }
     // temporarily make the board unclickable until the card flips
     // this.isBoardUnclickable = true
-    console.log("USFSDF");
-    // this.setState(prevState => {
-    //   cards: prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
-    // }, () => this.isBoardUnclickable = false)
-    this.setState((prevState) => {
-      console.log("sdf",prevState.cards[index]);
-      prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped;
-      console.log("sdf",prevState.cards[index]);
-      return prevState;
-    })
+
+    // Flip the card
+    this.setState(
+      prevState => {
+        prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
+        return prevState
+      },
+      () => {
+        this.isBoardUnclickable = false
+        console.log('callback should have fired', this.isBoardUnclickable)
+      }
+    )
+
+    // Store the data
+    this.state.activeCards.push({ id, index })
+
+    // If this is the second card, check for a match
+    if (this.state.activeCards.length === 2) {
+      // Increment their score if there's a match
+      if (this.state.activeCards[0].id === this.state.activeCards[1].id) {
+        this.numberOfMatches = this.numberOfMatches + 1
+        this.setState({ activeCards: [] })
+        if (this.numberOfMatches === this.numberOfCards) {
+          this.state.mode = 'end'
+        }
+      } else {
+        // Otherwise, flip the cards back
+        // Wait a second so we actually see both cards
+        setTimeout(() => {
+          this.setState(prevState => {
+            prevState.activeCards = []
+            prevState.cards[this.state.activeCards[0].index].isFlipped = false
+            prevState.cards[this.state.activeCards[1].index].isFlipped = false
+            return prevState
+          }, () => (this.isBoardUnclickable = false))
+        }, 1000)
+      }
+    }
   }
 
   render() {
