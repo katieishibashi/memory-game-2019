@@ -7,6 +7,7 @@ class MessageDisplay extends React.Component {
     const mode = this.props.mode
     const typeButtonClick = this.props.typeButtonClick
     const resetButtonClick = this.props.resetButtonClick
+    const secondsElapsed = this.props.secondsElapsed
     let display
     function StartScreen() {
       return (
@@ -24,7 +25,7 @@ class MessageDisplay extends React.Component {
       return (
         <div>
           <h1>Flip over cards to find a match.</h1>
-          <Timer mode={mode}/>
+          <Timer secondsElapsed={secondsElapsed}/>
           <div className={styles.buttonContainer}>
             <button onClick={resetButtonClick}>RESET</button>
           </div>

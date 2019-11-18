@@ -8,18 +8,22 @@ import styles from './Game.scss'
 class Game extends React.Component {
   constructor() {
     super()
-    this.state = { mode: 'start', cards: [], activeCards: [], numberOfMatches:0, }
+    this.state = { mode: 'start', cards: [], secondsElapsed: 0 }
     this.typeButtonClick = this.typeButtonClick.bind(this)
     this.resetButtonClick = this.resetButtonClick.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.numberOfCards = 8
+    this.activeCards = [];
+    this.numberOfMatches = 0;
   }
 
   typeButtonClick(type) {
     this.getData(type)
   }
   resetButtonClick(text) {
-    this.setState({ mode: 'start', cards: [], activeCards: [], numberOfMatches:0 })
+    this.setState({ mode: 'start', cards: [], secondsElapsed: 0 })
+    this.activeCards = [];
+    this.numberOfMatches = 0;
   }
 
   chooseRandomImages(images) {
@@ -73,10 +77,10 @@ class Game extends React.Component {
 
   handleClick(e, id, index) {
     // return if we already have two cards selected
-    if (this.state.activeCards.length >= 2) {
+    if (this.activeCards.length >= 2) {
       return
     }
-
+    console.log(this.activeCards);
     // Flip the card
     this.setState(prevState => {
       prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
@@ -85,20 +89,20 @@ class Game extends React.Component {
 
 
     // Return if they've just clicked the same card twice
-    if (this.state.activeCards[0] && index === this.state.activeCards[0].index) {
+    if (this.activeCards[0] && index === this.activeCards[0].index) {
       return
     } else {
       // Otherwise, store the data
-      this.state.activeCards.push({ id, index })
+      this.activeCards.push({ id, index })
     }
 
     // If this is the second card, check for a match
-    if (this.state.activeCards.length === 2) {
+    if (this.activeCards.length === 2) {
       // Increment their score if there's a match
-      if (this.state.activeCards[0].id === this.state.activeCards[1].id) {
-        this.state.numberOfMatches = this.state.numberOfMatches + 1
+      if (this.activeCards[0].id === this.activeCards[1].id) {
+        this.numberOfMatches = this.numberOfMatches + 1
         this.setState({ activeCards: [] })
-        if (this.state.numberOfMatches === this.numberOfCards) {
+        if (this.numberOfMatches === this.numberOfCards) {
           this.state.mode = 'end'
         }
       } else {
@@ -106,14 +110,34 @@ class Game extends React.Component {
         // Wait a second so we actually see both cards
         setTimeout(() => {
           this.setState(prevState => {
-            prevState.cards[this.state.activeCards[0].index].isFlipped = false
-            prevState.cards[this.state.activeCards[1].index].isFlipped = false
-            prevState.activeCards = []
+            prevState.cards[this.activeCards[0].index].isFlipped = false
+            prevState.cards[this.activeCards[1].index].isFlipped = false
+
             return prevState
           })
+          this.activeCards = [];
         }, 1000)
       }
     }
+  }
+
+  //Logic for the timer
+
+  componentDidUpdate() {
+    //Set the interval if we don't already have one and we're in playing mode
+    if (!this.interval && this.state.mode==="playing"){
+      this.interval = setInterval(this.tick.bind(this), 1000)
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
+  tick() {
+    this.setState({
+      secondsElapsed: this.state.secondsElapsed + 1,
+    })
   }
 
   render() {
@@ -122,6 +146,7 @@ class Game extends React.Component {
       <div className={styles.mainContainer}>
         <MessageDisplay
           mode={mode}
+          secondsElapsed={secondsElapsed}
           typeButtonClick={this.typeButtonClick}
           resetButtonClick={this.resetButtonClick}
           secondsElapsed={secondsElapsed}
