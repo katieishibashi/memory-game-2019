@@ -14,17 +14,6 @@ export const formatTime = time => {
   return `${m}:${ss}`
 }
 
-const Timer = ({ time = 0 }) => <div className={styles.timer}>{formatTime(time)}</div>
+const Timer = (props) => <div className={styles.timer}>{formatTime(props.secondsElapsed)}</div>
 
-Timer.propTypes = {
-  time: PropTypes.number,
-}
-
-class TimerContainer extends React.Component {
-
-  render() {
-    return <Timer time={this.props.secondsElapsed} />
-  }
-}
-
-export default TimerContainer
+export default Timer
