@@ -173,5 +173,6 @@ class Game extends React.Component {
 Game.PropTypes = {
   mode: PropTypes.oneOf(['start', 'playing', 'end']),
   cards: PropTypes.array,
+  secondsElapsed: PropTypes.number
 }
 export default Game
