@@ -8,19 +8,18 @@ import styles from './Game.scss'
 class Game extends React.Component {
   constructor() {
     super()
-    this.state = { mode: 'start', cards: [], activeCards: [] }
+    this.state = { mode: 'start', cards: [], activeCards: [], numberOfMatches:0, }
     this.typeButtonClick = this.typeButtonClick.bind(this)
     this.resetButtonClick = this.resetButtonClick.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.numberOfCards = 8
-    this.numberOfMatches = 0
   }
 
   typeButtonClick(type) {
     this.getData(type)
   }
   resetButtonClick(text) {
-    this.setState({ mode: 'start', cards: [] })
+    this.setState({ mode: 'start', cards: [], activeCards: [], numberOfMatches:0 })
   }
 
   chooseRandomImages(images) {
@@ -73,7 +72,6 @@ class Game extends React.Component {
   }
 
   handleClick(e, id, index) {
-    console.log('in handle click', id, index)
     // return if we already have two cards selected
     if (this.state.activeCards.length >= 2) {
       return
@@ -85,12 +83,12 @@ class Game extends React.Component {
       return prevState
     })
 
-    // Store the data
+
     // Return if they've just clicked the same card twice
     if (this.state.activeCards[0] && index === this.state.activeCards[0].index) {
-      console.log("hi");
       return
     } else {
+      // Otherwise, store the data
       this.state.activeCards.push({ id, index })
     }
 
@@ -98,9 +96,9 @@ class Game extends React.Component {
     if (this.state.activeCards.length === 2) {
       // Increment their score if there's a match
       if (this.state.activeCards[0].id === this.state.activeCards[1].id) {
-        this.numberOfMatches = this.numberOfMatches + 1
+        this.state.numberOfMatches = this.state.numberOfMatches + 1
         this.setState({ activeCards: [] })
-        if (this.numberOfMatches === this.numberOfCards) {
+        if (this.state.numberOfMatches === this.numberOfCards) {
           this.state.mode = 'end'
         }
       } else {
@@ -119,14 +117,16 @@ class Game extends React.Component {
   }
 
   render() {
-    const { cards, mode } = this.state
+    const { cards, mode, secondsElapsed } = this.state
     return (
       <div className={styles.mainContainer}>
         <MessageDisplay
           mode={mode}
           typeButtonClick={this.typeButtonClick}
           resetButtonClick={this.resetButtonClick}
+          secondsElapsed={secondsElapsed}
         />
+
         <div className={styles.cardsContainer}>
           {mode === 'playing' &&
             cards.map((card, index) => (

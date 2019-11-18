@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './MessageDisplay.scss'
+import Timer from '../Timer/Timer'
 
 class MessageDisplay extends React.Component {
   render() {
@@ -23,6 +24,7 @@ class MessageDisplay extends React.Component {
       return (
         <div>
           <h1>Flip over cards to find a match.</h1>
+          <Timer mode={mode}/>
           <div className={styles.buttonContainer}>
             <button onClick={resetButtonClick}>RESET</button>
           </div>
@@ -41,6 +43,7 @@ class MessageDisplay extends React.Component {
     }
     if (mode === 'start') {
       display = <StartScreen />
+      // Reset the timer
     } else if (mode === 'playing') {
       display = <PlayingScreen />
     } else {
