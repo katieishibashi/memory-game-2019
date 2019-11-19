@@ -16,7 +16,7 @@ export const formatTime = time => {
 
 const Timer = props => <div className={styles.timer}>{formatTime(props.secondsElapsed)}</div>
 
-Timer.PropTypes = {
+Timer.propTypes = {
   secondsElapsed: PropTypes.number,
 }
 export default Timer

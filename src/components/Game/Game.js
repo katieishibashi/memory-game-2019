@@ -39,15 +39,15 @@ class Game extends React.Component {
     return [...imageSet]
   }
 
-  shuffle(deck) {
-    for (let i = deck.length - 1; i > 0; i += 1) {
-      const j = Math.floor(Math.random() * i)
-      const temp = deck[i]
-      deck[i] = deck[j]
-      deck[j] = temp
-    }
-    return deck
-  }
+  // shuffle(deck) {
+  //   for (let i = deck.length - 1; i > 0; i += 1) {
+  //     const j = Math.floor(Math.random() * i)
+  //     const temp = deck[i]
+  //     deck[i] = deck[j]
+  //     deck[j] = temp
+  //   }
+  //   return deck
+  // }
 
   mapDataToCards(images) {
     const imageArr = this.chooseRandomimageArr(images)
@@ -85,22 +85,18 @@ class Game extends React.Component {
       prevState.cards[index].isFlipped = !prevState.cards[index].isFlipped
       return prevState
     })
-
-
     // Return if they've just clicked the same card twice
     if (this.activeCards[0] && index === this.activeCards[0].index) {
       return
-    } 
-      // Otherwise, store the data
-      this.activeCards.push({ id, index })
-    
-
+    }
+    // Otherwise, store the data
+    this.activeCards.push({ id, index })
     // If this is the second card, check for a match
     if (this.activeCards.length === 2) {
       // Increment their score if there's a match
       if (this.activeCards[0].id === this.activeCards[1].id) {
         this.numberOfMatches = this.numberOfMatches + 1
-        this.activeCards = [];
+        this.activeCards = []
         if (this.numberOfMatches === this.numberOfCards) {
           this.state.mode = 'end'
         }
@@ -111,7 +107,7 @@ class Game extends React.Component {
           this.setState(prevState => {
             prevState.cards[this.activeCards[0].index].isFlipped = false
             prevState.cards[this.activeCards[1].index].isFlipped = false
-            this.activeCards = [];
+            this.activeCards = []
             return prevState
           })
         }, 1000)
@@ -147,9 +143,7 @@ class Game extends React.Component {
           secondsElapsed={secondsElapsed}
           typeButtonClick={this.typeButtonClick}
           resetButtonClick={this.resetButtonClick}
-          secondsElapsed={secondsElapsed}
         />
-
         <div className={styles.cardsContainer}>
           {mode === 'playing' &&
             cards.map((card, index) => (
@@ -171,6 +165,6 @@ class Game extends React.Component {
 Game.PropTypes = {
   mode: PropTypes.oneOf(['start', 'playing', 'end']),
   cards: PropTypes.array,
-  secondsElapsed: PropTypes.number,,
+  secondsElapsed: PropTypes.number,
 }
 export default Game

@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './Card.scss'
 
-
 const Card = ({ img, isFlipped, handleClick, id, index }) => (
   <div
     id={id}
@@ -15,7 +14,7 @@ const Card = ({ img, isFlipped, handleClick, id, index }) => (
   >
     <div className={styles.cardContent}>
       <div className={styles.cardBack} />
-      <div className={styles.cardFront} style={{backgroundImage:`url(${img})`}} />
+      <div className={styles.cardFront} style={{ backgroundImage: `url(${img})` }} />
     </div>
   </div>
 )
