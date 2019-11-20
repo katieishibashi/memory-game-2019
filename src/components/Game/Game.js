@@ -75,8 +75,7 @@ class Game extends React.Component {
       })
   }
 
-  handleClick(e, id, index, key) {
-    console.log(key);
+  handleClick(e, id, index) {
     // return if we already have two cards selected
     if (this.activeCards.length >= 2) {
       return
