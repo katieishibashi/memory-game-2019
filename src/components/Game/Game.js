@@ -39,18 +39,18 @@ class Game extends React.Component {
     return [...imageSet]
   }
 
-  // shuffle(deck) {
-  //   for (let i = deck.length - 1; i > 0; i += 1) {
-  //     const j = Math.floor(Math.random() * i)
-  //     const temp = deck[i]
-  //     deck[i] = deck[j]
-  //     deck[j] = temp
-  //   }
-  //   return deck
-  // }
+  shuffle(deck) {
+    for (let i = deck.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * i)
+      const temp = deck[i]
+      deck[i] = deck[j]
+      deck[j] = temp
+    }
+    return deck
+  }
 
   mapDataToCards(images) {
-    const imageArr = this.chooseRandomimageArr(images)
+    const imageArr = this.chooseRandomImages(images)
     // Use the image urls to generate our cards data
     const cardsArr = []
     imageArr.forEach((image, index) => {
@@ -75,7 +75,8 @@ class Game extends React.Component {
       })
   }
 
-  handleClick(e, id, index) {
+  handleClick(e, id, index, key) {
+    console.log(key);
     // return if we already have two cards selected
     if (this.activeCards.length >= 2) {
       return
