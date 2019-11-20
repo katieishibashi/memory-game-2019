@@ -149,6 +149,7 @@ class Game extends React.Component {
             cards.map((card, index) => (
               <Card
                 img={card.img}
+                // eslint-disable-next-line react/no-array-index-key
                 key={`card${index}`}
                 index={index}
                 id={card.id}
