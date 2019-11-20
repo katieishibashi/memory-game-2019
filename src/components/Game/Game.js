@@ -39,6 +39,7 @@ class Game extends React.Component {
     return [...imageSet]
   }
 
+  // eslint-disable-next-line class-methods-use-this
   shuffle(deck) {
     for (let i = deck.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * i)
@@ -74,7 +75,7 @@ class Game extends React.Component {
         console.warn('failed to get data')
       })
   }
-
+  
   handleClick(e, id, index) {
     // return if we already have two cards selected
     if (this.activeCards.length >= 2) {
