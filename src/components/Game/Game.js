@@ -30,7 +30,7 @@ class Game extends React.Component {
     // Select 8 random images
     const imageSet = new Set()
     while (imageSet.size < this.numberOfCards) {
-      // Select a random image location
+      // Select a random image from the array
       const imageLocation = Math.floor(Math.random() * Math.floor(images.length))
       // Add the image url to the set we will use to generate cards
       imageSet.add(images[imageLocation])
@@ -75,6 +75,7 @@ class Game extends React.Component {
         console.warn('failed to get data')
       })
   }
+
   handleClick(e, id, index) {
     // return if we already have two cards selected
     if (this.activeCards.length >= 2) {
@@ -114,8 +115,6 @@ class Game extends React.Component {
       }
     }
   }
-
-  // Logic for the timer
 
   componentDidUpdate() {
     // Set the interval if we don't already have one and we're in playing mode

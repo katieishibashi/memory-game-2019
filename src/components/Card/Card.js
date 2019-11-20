@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './Card.scss'
 
-const Card = ({ img, isFlipped, handleClick, id, index }) => (
+const Card = ({ img, isFlipped, handleClick, id, index, key }) => (
   <div
     id={id}
     index={index}
+    key={key}
     className={[styles.card, isFlipped && styles.flipped].join(' ')}
     onClick={e => handleClick(e, id, index)}
     role="option"
@@ -25,6 +26,7 @@ Card.propTypes = {
   handleClick: PropTypes.func,
   id: PropTypes.string,
   index: PropTypes.number,
+  key: PropTypes.string,
 }
 
 export default Card
