@@ -10,8 +10,8 @@ const MessageDisplay = ({ mode, typeButtonClick, resetButtonClick, secondsElapse
       <div>
         <h1>Welcome to the game! Select a type.</h1>
         <div className={styles.buttonContainer}>
-          <button onClick={() => typeButtonClick('cats')}>Cats</button>&nbsp;
-          <button onClick={() => typeButtonClick('dogs')}>Dogs</button>&nbsp;
+          <button onClick={() => typeButtonClick('cats')}>Cats</button>
+          <button onClick={() => typeButtonClick('dogs')}>Dogs</button>
           <button onClick={() => typeButtonClick('pie')}>Pie</button>
         </div>
       </div>
