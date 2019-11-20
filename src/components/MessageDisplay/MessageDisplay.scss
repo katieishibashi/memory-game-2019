@@ -1,19 +1,22 @@
-.messageScreen{
-    color:purple;
-    padding-bottom:40px;
-    h1{
-        font-size:40px;
-        line-height:1.3em;
-        text-align:center;
-    }
-    .buttonContainer{
-        display:flex;
-        justify-content:center;
-    }
-}
-.timer {
-    color: purple;
-    text-align:center;
-    font-size:30px;
+.messageScreen {
+  color: purple;
+  padding-bottom: 40px;
+
+  h1 {
+    font-size: 40px;
+    line-height: 1.3em;
+    text-align: center;
   }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.timer {
+  color: purple;
+  text-align: center;
+  font-size: 30px;
+}
   

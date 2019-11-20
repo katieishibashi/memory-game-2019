@@ -75,7 +75,6 @@ class Game extends React.Component {
         console.warn('failed to get data')
       })
   }
-  
   handleClick(e, id, index) {
     // return if we already have two cards selected
     if (this.activeCards.length >= 2) {
