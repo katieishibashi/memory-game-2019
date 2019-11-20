@@ -1,14 +1,15 @@
-/* Import fonts*/
+/* Import fonts */
 @import url('https://fonts.googleapis.com/css?family=Archivo:400,700&display=swap');
 
 .mainContainer {
   width: 90%;
   margin: 0 auto;
-  border:3px solid #5fa8ed;
+  border: 3px solid #5fa8ed;
   position: relative;
   min-height: 200px;
   font-family: 'Archivo', sans-serif;
 }
+
 .cardsContainer {
   width: 90%;
   max-width: 1200px;
@@ -23,7 +24,7 @@
 }
 
 button {
-  border:3px solid #708999;
+  border: 3px solid #708999;
   color: #708999;
   font-family: 'Archivo', sans-serif;
   font-size: 16px;
@@ -35,6 +36,6 @@ button {
 
 .resetButton {
   position: absolute;
-  bottom: 0; 
+  bottom: 0;
   right: 0;
 }
