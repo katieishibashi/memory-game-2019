@@ -3,9 +3,13 @@
   padding-bottom: 40px;
 
   h1 {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 1.3em;
     text-align: center;
+
+    @media (min-width: 768px) {
+      font-size: 40px;
+    }
   }
 
   .buttonContainer {
