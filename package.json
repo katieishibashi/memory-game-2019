@@ -13,7 +13,7 @@
     "babel-preset-kyt-react": "0.3.0",
     "compression": "1.7.1",
     "express": "4.16.2",
-    "kyt": "0.9.0",
+    "kyt": "1.2.5",
     "prop-types": "15.6.0",
     "react": "16.1.1",
     "react-dom": "16.1.1"
